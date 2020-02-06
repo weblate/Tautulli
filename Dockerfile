@@ -2,6 +2,9 @@ FROM python:2.7.17-slim
 
 LABEL maintainer="TheMeanCanEHdian"
 
+ARG VERSION
+ARG RELEASE
+
 ENV TAUTULLI_DOCKER=True
 ENV TZ=UTC
 
@@ -16,7 +19,9 @@ rm -rf /var/lib/apt/lists/* && \
 pip install --no-cache-dir --upgrade pip && \
 pip install --no-cache-dir --upgrade \
   pycryptodomex \
-  pyopenssl
+  pyopenssl && \
+echo ${VERSION} > version.lock && \
+echo ${RELEASE} > release.lock
 
 COPY . /app
 
