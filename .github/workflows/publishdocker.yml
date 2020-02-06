@@ -9,7 +9,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
         VERSION: ${{ github.sha }}
-        RELEASE: ${{ github.ref##*/ }}
+        RELEASE: ${{ github.ref }}
       with:
         name: wreave/tautulli
         username: ${{ secrets.DOCKER_USERNAME }}
