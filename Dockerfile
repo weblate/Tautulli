@@ -8,8 +8,6 @@ ARG RELEASE
 ENV TAUTULLI_DOCKER=True
 ENV TZ=UTC
 
-WORKDIR /config
-
 RUN \
 apt-get -q -y update --no-install-recommends && \
 apt-get install -q -y --no-install-recommends \
