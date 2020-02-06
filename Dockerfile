@@ -20,8 +20,8 @@ pip install --no-cache-dir --upgrade pip && \
 pip install --no-cache-dir --upgrade \
   pycryptodomex \
   pyopenssl && \
-echo ${VERSION} > version.lock && \
-echo ${RELEASE} > release.lock
+echo ${VERSION} > /config/version.lock && \
+echo ${RELEASE} > /config/release.lock
 
 COPY . /app
 
