@@ -8,8 +8,8 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
-        VERSION: ${{ GITHUB_SHA }}
-        RELEASE: ${{ GITHUB_REF##*/ }}
+        VERSION: $GITHUB_SHA 
+        RELEASE: $GITHUB_REF
       with:
         name: wreave/tautulli
         username: ${{ secrets.DOCKER_USERNAME }}
