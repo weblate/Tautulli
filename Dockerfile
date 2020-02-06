@@ -8,7 +8,7 @@ ARG RELEASE
 ENV TAUTULLI_DOCKER=True
 ENV TZ=UTC
 
-WORKDIR /app
+WORKDIR /config
 
 RUN \
 apt-get -q -y update --no-install-recommends && \
@@ -20,8 +20,10 @@ pip install --no-cache-dir --upgrade pip && \
 pip install --no-cache-dir --upgrade \
   pycryptodomex \
   pyopenssl && \
-echo ${VERSION} > /app/version.lock && \
-echo ${RELEASE} > /app/release.lock
+echo ${VERSION} > /config/version.lock && \
+echo ${RELEASE} > /config/release.lock
+
+WORKDIR /app
 
 COPY . /app
 
