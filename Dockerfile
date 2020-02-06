@@ -15,9 +15,9 @@ apt-get install -q -y --no-install-recommends \
 rm -rf /var/lib/apt/lists/* && \
 pip install --no-cache-dir --upgrade pip && \
 pip install --no-cache-dir --upgrade \
-plexapi \
-pycryptodomex \
-pyopenssl
+  plexapi \
+  pycryptodomex \
+  pyopenssl
 
 COPY . /app
 
