@@ -8,6 +8,8 @@ ARG RELEASE
 ENV TAUTULLI_DOCKER=True
 ENV TZ=UTC
 
+VOLUME /config /plex_logs
+
 RUN \
 apt-get -q -y update --no-install-recommends && \
 apt-get install -q -y --no-install-recommends \
@@ -27,6 +29,5 @@ COPY . /app
 
 CMD [ "python", "Tautulli.py", "--datadir", "/config" ]
 
-VOLUME /config /plex_logs
 EXPOSE 8181
 HEALTHCHECK  --start-period=90s CMD curl -ILfSs http://localhost:8181/status > /dev/null || curl -ILfkSs https://localhost:8181/status > /dev/null || exit 1
