@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: Set env
+      run: echo ::set-env name=RELEASE_VERSION::${GITHUB_REF:10}
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       env:
@@ -15,4 +17,4 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
         buildargs: VERSION
-        tags: ${{ github.ref }}
+        tags: ${{ env.RELEASE_VERSION }}
