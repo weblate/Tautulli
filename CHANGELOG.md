@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.1.45-beta (2020-02-24)
+## v2.1.45 (2020-02-24)
 
 * Monitoring:
   * Fix: Some fix.
