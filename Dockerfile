@@ -22,6 +22,8 @@ pip install --no-cache-dir --upgrade \
   pyopenssl && \
 echo ${VERSION} > /app/version.txt && \
 echo ${BRANCH} > /app/branch.txt
+apt-get purge -y --auto-remove \
+  build-essential libssl-dev libffi-dev
 
 COPY . /app
 
