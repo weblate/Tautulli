@@ -11,19 +11,14 @@ ENV TZ=UTC
 WORKDIR /app
 
 RUN \
-apt-get -q -y update --no-install-recommends && \
-apt-get install -q -y --no-install-recommends \
-  build-essential libssl-dev libffi-dev \
-  curl && \
-rm -rf /var/lib/apt/lists/* && \
-pip install --no-cache-dir --upgrade pip && \
-pip install --no-cache-dir --upgrade \
-  pycryptodomex \
-  pyopenssl && \
-echo ${VERSION} > /app/version.txt && \
-echo ${BRANCH} > /app/branch.txt && \
-apt-get purge -y --auto-remove \
-  build-essential libssl-dev libffi-dev
+  apt-get -q -y update --no-install-recommends && \
+  apt-get install -q -y --no-install-recommends \
+    curl \
+    python-openssl \
+    python-pycryptodome && \
+  rm -rf /var/lib/apt/lists/* && \
+  echo ${VERSION} > /app/version.txt && \
+  echo ${BRANCH} > /app/branch.txt
 
 COPY . /app
 
