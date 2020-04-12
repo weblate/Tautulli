@@ -14,12 +14,17 @@ WORKDIR /app
 RUN \
   apt-get -q -y update --no-install-recommends && \
   apt-get install -q -y --no-install-recommends \
-    curl \
-    python-openssl \
-    python-pycryptodome && \
+    build-essential libssl-dev libffi-dev \
+    curl && \
+  pip install --no-cache-dir --upgrade pip && \
+  pip install --no-cache-dir --upgrade \
+    pycryptodomex \
+    pyopenssl && \
   rm -rf /var/lib/apt/lists/* && \
   echo ${VERSION} > /app/version.txt && \
-  echo ${BRANCH} > /app/branch.txt
+  echo ${BRANCH} > /app/branch.txt && \
+  apt-get purge -y --auto-remove \
+    build-essential libssl-dev libffi-dev
 
 COPY . /app
 
