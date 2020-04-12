@@ -1,4 +1,4 @@
-FROM python:2.7.17-slim
+FROM jonnywong16/tautulli-baseimage:latest
 
 LABEL maintainer="TheMeanCanEHdian"
 
@@ -7,24 +7,12 @@ ARG BRANCH
 
 ENV TAUTULLI_DOCKER=True
 ENV TZ=UTC
-ENV PYTHONPATH="${PYTHONPATH}:/usr/lib/python2.7"
 
 WORKDIR /app
 
 RUN \
-  apt-get -q -y update --no-install-recommends && \
-  apt-get install -q -y --no-install-recommends \
-    build-essential libssl-dev libffi-dev \
-    curl && \
-  pip install --no-cache-dir --upgrade pip && \
-  pip install --no-cache-dir --upgrade \
-    pycryptodomex \
-    pyopenssl && \
-  rm -rf /var/lib/apt/lists/* && \
   echo ${VERSION} > /app/version.txt && \
-  echo ${BRANCH} > /app/branch.txt && \
-  apt-get purge -y --auto-remove \
-    build-essential libssl-dev libffi-dev
+  echo ${BRANCH} > /app/branch.txt
 
 COPY . /app
 
