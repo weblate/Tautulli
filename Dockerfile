@@ -13,6 +13,7 @@ WORKDIR /app
 RUN \
 apt-get -q -y update --no-install-recommends && \
 apt-get install -q -y --no-install-recommends \
+  build-essential libssl-dev libffi-dev \
   curl && \
 rm -rf /var/lib/apt/lists/* && \
 pip install --no-cache-dir --upgrade pip && \
