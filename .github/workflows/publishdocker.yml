@@ -12,12 +12,16 @@ jobs:
         run: |
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
+            echo ::set-output name=branch::master
           elif [[ $GITHUB_REF == refs/heads/master ]]; then
             echo ::set-output name=version::latest
+            echo ::set-output name=branch::master
           elif [[ $GITHUB_REF == refs/heads/* ]]; then
             echo ::set-output name=version::${GITHUB_REF#refs/heads/}
+            echo ::set-output name=branch::${GITHUB_REF#refs/heads/}
           else
             echo ::set-output name=version::snapshot
+            echo ::set-output name=branch::snapshot
           fi
           echo ::set-output name=build_date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
           echo ::set-output name=docker_platforms::linux/amd64,linux/arm,linux/arm64/v8
@@ -38,6 +42,7 @@ jobs:
             --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --output "type=image,push=false" \
             --build-arg "VERSION=${{ steps.prepare.outputs.version }}" \
+            --build-arg "BRANCH=${{ steps.prepare.outputs.branch }}" \
             --build-arg "BUILD_DATE=${{ steps.prepare.outputs.build_date }}" \
             --build-arg "VCS_REF=${GITHUB_SHA::8}" \
             --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}" \
@@ -57,6 +62,7 @@ jobs:
             --platform ${{ steps.prepare.outputs.docker_platforms }} \
             --output "type=image,push=true" \
             --build-arg "VERSION=${{ steps.prepare.outputs.version }}" \
+            --build-arg "BRANCH=${{ steps.prepare.outputs.branch }}" \
             --build-arg "BUILD_DATE=${{ steps.prepare.outputs.build_date }}" \
             --build-arg "VCS_REF=${GITHUB_SHA::8}" \
             --tag "${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}" \
