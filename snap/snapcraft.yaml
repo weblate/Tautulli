@@ -11,7 +11,16 @@ base: core18
 confinement: strict
 
 parts:
+  add-python-ppa:
+    plugin: nil
+    build-packages:
+      - software-properties-common
+    override-pull: |
+      sudo add-apt-repository -y ppa:deadsnakes/ppa
+      sudo apt update
+      
   tautulli:
+    after: [add-python-ppa]
     plugin: dump
     source: .
     stage-packages:
