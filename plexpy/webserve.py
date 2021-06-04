@@ -43,6 +43,9 @@ import mako.exceptions
 
 import websocket
 
+import gettext
+_ = gettext.gettext
+
 import plexpy
 if plexpy.PYTHON2:
     import activity_pinger
@@ -130,7 +133,7 @@ def serve_template(templatename, **kwargs):
     try:
         template = _hplookup.get_template(templatename)
         return template.render(http_root=http_root, server_name=server_name, cache_param=cache_param,
-                               _session=_session, **kwargs)
+                               _session=_session, _=_, **kwargs)
     except Exception as e:
         logger.exception("WebUI :: Mako template render error: %s" % e)
         return mako.exceptions.html_error_template().render()
